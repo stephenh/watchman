@@ -1,0 +1,50 @@
+
+plugins {
+  id "java"
+  id "maven-publish"
+  id "eclipse"
+
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.google.guava:guava:23.6.1-jre'
+  annotationProcessor 'org.immutables:value:2.7.1'
+  compile 'org.immutables:value:2.7.1'
+  compile 'net.java.dev.jna:jna:4.5.2'
+  compile 'net.java.dev.jna:jna-platform:4.5.2'
+  compile 'com.zaxxer:nuprocess:1.2.4'
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src']
+    }
+  }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava {
+  options.compilerArgs.addAll(['--release', '8'])
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId = 'com.facebook.watchman'
+      artifactId = 'watchman-lib'
+      version = '0.1'
+      from components.java
+    }
+  }
+  repositories {
+    maven {
+      url "/home/stephen/repo"
+    }
+  }
+}
